@@ -5,6 +5,22 @@ import 'package:api_using_http_provider/models/cart.dart';
 class ApiService {
   static const String baseUrl =
       'https://dummyjson.com/carts';
+  static Future<List<Cart>> getCarts() async {
+    final response = await http.get(Uri.parse(baseUrl));
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = jsonDecode(
+        response.body,
+      );
+      final List<dynamic> jsonData = data['carts'];
+
+      return jsonData
+          .map((cart) => Cart.fromJson(cart))
+          .toList();
+    } else {
+      throw Exception('Failed to load carts');
+    }
+  }
 
   static Future<Cart> getCart(int id) async {
     final response = await http.get(
