@@ -81,6 +81,123 @@ class _CartsScreenState extends State<CartsScreen> {
     }
   }
 
+  Future<void> createCart() async {
+    try {
+      context.read<LoadingProvider>().changeLoading(
+        value: true,
+      );
+      context.read<MessageProvider>().changeMessage(
+        newMessage: "Loading...",
+      );
+      await context.read<CartProvider>().createNewCart();
+      context.read<LoadingProvider>().changeLoading(
+        value: false,
+      );
+      final cart = context.read<CartProvider>().cart;
+      context.read<MessageProvider>().changeMessage(
+        newMessage:
+            "Created Cart: ${cart?.id}\nUser Id: ${cart?.userId}\nTotal Products: ${cart?.totalProducts}\nTotal Quantity: ${cart?.totalQuantity}\nTotal: ${cart?.total}",
+      );
+    } catch (e) {
+      context.read<LoadingProvider>().changeLoading(
+        value: false,
+      );
+      context.read<MessageProvider>().changeMessage(
+        newMessage: "Error: $e",
+      );
+    }
+  }
+
+  Future<void> updateCart() async {
+    try {
+      context.read<LoadingProvider>().changeLoading(
+        value: true,
+      );
+      context.read<MessageProvider>().changeMessage(
+        newMessage: "Loading...",
+      );
+      await context
+          .read<CartProvider>()
+          .updateExisitingCart();
+      context.read<LoadingProvider>().changeLoading(
+        value: false,
+      );
+      final cart = context.read<CartProvider>().cart;
+      context.read<MessageProvider>().changeMessage(
+        newMessage:
+            "Updated Cart: ${cart?.id}\nUser Id: ${cart?.userId}\nTotal Products: ${cart?.totalProducts}\nTotal Quantity: ${cart?.totalQuantity}\nTotal: ${cart?.total}",
+      );
+    } catch (e) {
+      context.read<LoadingProvider>().changeLoading(
+        value: false,
+      );
+      context.read<MessageProvider>().changeMessage(
+        newMessage: "Error: $e",
+      );
+    }
+  }
+
+  Future<void> patchCart() async {
+    try {
+      context.read<LoadingProvider>().changeLoading(
+        value: true,
+      );
+      context.read<MessageProvider>().changeMessage(
+        newMessage: "Loading...",
+      );
+      await context
+          .read<CartProvider>()
+          .patchExisitingCart();
+      context.read<LoadingProvider>().changeLoading(
+        value: false,
+      );
+      final cart = context.read<CartProvider>().cart;
+      context.read<MessageProvider>().changeMessage(
+        newMessage:
+            "Patched Cart: ${cart?.id}\nUser Id: ${cart?.userId}\nTotal Products: ${cart?.totalProducts}\nTotal Quantity: ${cart?.totalQuantity}\nTotal: ${cart?.total}",
+      );
+    } catch (e) {
+      context.read<LoadingProvider>().changeLoading(
+        value: false,
+      );
+      context.read<MessageProvider>().changeMessage(
+        newMessage: "Error: $e",
+      );
+    }
+  }
+
+  Future<void> deleteCart() async {
+    try {
+      context.read<LoadingProvider>().changeLoading(
+        value: true,
+      );
+      context.read<MessageProvider>().changeMessage(
+        newMessage: "Deleting Cart...",
+      );
+      await context
+          .read<CartProvider>()
+          .deleteExisitingCart();
+      context.read<LoadingProvider>().changeLoading(
+        value: false,
+      );
+      final isDeleted = context
+          .read<CartProvider>()
+          .isDeleted;
+      context.read<MessageProvider>().changeMessage(
+        newMessage: isDeleted
+            ? "Deleted cart successfully"
+            : "Cart deletion failed",
+      );
+    } catch (e) {
+      context.read<LoadingProvider>().changeLoading(
+        value: false,
+      );
+      context.read<MessageProvider>().changeMessage(
+        newMessage: "Error: $e",
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -166,7 +283,7 @@ class _CartsScreenState extends State<CartsScreen> {
                               BorderRadius.circular(12),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: createCart,
                       child: const Text(
                         "CREATE Cart",
                         style: TextStyle(
@@ -186,7 +303,7 @@ class _CartsScreenState extends State<CartsScreen> {
                               BorderRadius.circular(12),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: updateCart,
                       child: const Text(
                         "UPDATE Cart",
                         style: TextStyle(
@@ -214,7 +331,7 @@ class _CartsScreenState extends State<CartsScreen> {
                               BorderRadius.circular(12),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: patchCart,
                       child: const Text(
                         "PATCH Cart",
                         style: TextStyle(
@@ -233,7 +350,7 @@ class _CartsScreenState extends State<CartsScreen> {
                               BorderRadius.circular(12),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: deleteCart,
                       child: const Text(
                         "DELETE Cart",
                         style: TextStyle(
