@@ -1,7 +1,10 @@
+import 'package:api_using_http_provider/providers/loading_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:api_using_http_provider/models/cart.dart';
 import 'package:api_using_http_provider/services/api_service.dart';
 import 'dart:math';
+
+import 'package:provider/provider.dart';
 
 class CartsScreen extends StatefulWidget {
   const CartsScreen({super.key});
@@ -15,34 +18,32 @@ class _CartsScreenState extends State<CartsScreen> {
 
   String message = 'Press a button to make API request';
 
-  bool loading = false;
-
   Future<void> getAllCarts() async {
     try {
+      context.read<LoadingProvider>().changeLoading();
       setState(() {
-        loading = true;
         message = "Loading...";
       });
 
       final result = await ApiService.getCarts();
 
+      context.read<LoadingProvider>().changeLoading();
       setState(() {
         carts = result.take(10).toList();
         message = 'Loaded ${carts.length} carts';
-        loading = false;
       });
     } catch (e) {
+      context.read<LoadingProvider>().changeLoading();
       setState(() {
         message = "Error: $e";
-        loading = false;
       });
     }
   }
 
   Future<void> getSingleCart() async {
     try {
+      context.read<LoadingProvider>().changeLoading();
       setState(() {
-        loading = true;
         message = "Loading...";
       });
 
@@ -56,9 +57,9 @@ class _CartsScreenState extends State<CartsScreen> {
             'Fetched Cart: ${cart.id}\nUser Id: ${cart.userId}\nTotal Products: ${cart.totalProducts}\nTotal Quantity: ${cart.totalQuantity}\nTotal: ${cart.total}';
       });
     } catch (e) {
+      context.read<LoadingProvider>().changeLoading();
       setState(() {
         message = "Error: $e";
-        loading = false;
       });
     }
   }
