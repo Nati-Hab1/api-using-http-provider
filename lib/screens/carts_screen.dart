@@ -1,8 +1,7 @@
 import 'package:api_using_http_provider/providers/loading_provider.dart';
 import 'package:api_using_http_provider/providers/message_provider.dart';
+import 'package:api_using_http_provider/providers/cart_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:api_using_http_provider/models/cart.dart';
-import 'package:api_using_http_provider/services/api_service.dart';
 import 'dart:math';
 
 import 'package:provider/provider.dart';
@@ -15,10 +14,6 @@ class CartsScreen extends StatefulWidget {
 }
 
 class _CartsScreenState extends State<CartsScreen> {
-  List<Cart> carts = [];
-
-  // String message = 'Press a button to make API request';
-
   Future<void> getAllCarts() async {
     try {
       context.read<LoadingProvider>().changeLoading(
@@ -28,17 +23,17 @@ class _CartsScreenState extends State<CartsScreen> {
         newMessage: "Loading...",
       );
 
-      final result = await ApiService.getCarts();
-
-      setState(() {
-        carts = result.take(10).toList();
-      });
-
+      await context.read<CartProvider>().fetchAllCarts();
       context.read<LoadingProvider>().changeLoading(
         value: false,
       );
+
+      final count = context
+          .read<CartProvider>()
+          .carts
+          .length;
       context.read<MessageProvider>().changeMessage(
-        newMessage: "Loaded ${carts.length} carts",
+        newMessage: "Loaded ${count} carts",
       );
     } catch (e) {
       context.read<LoadingProvider>().changeLoading(
@@ -62,14 +57,19 @@ class _CartsScreenState extends State<CartsScreen> {
       Random random = Random();
       int id = random.nextInt(30) + 1;
 
-      final cart = await ApiService.getCart(id);
+      await context.read<CartProvider>().fetchSingleCart(
+        id: id,
+      );
 
       context.read<LoadingProvider>().changeLoading(
         value: false,
       );
+
+      final cart = context.read<CartProvider>().cart;
+
       context.read<MessageProvider>().changeMessage(
         newMessage:
-            "Fetched Cart: ${cart.id}\nUser Id: ${cart.userId}\nTotal Products: ${cart.totalProducts}\nTotal Quantity: ${cart.totalQuantity}\nTotal: ${cart.total}",
+            "Fetched Cart: ${cart?.id}\nUser Id: ${cart?.userId}\nTotal Products: ${cart?.totalProducts}\nTotal Quantity: ${cart?.totalQuantity}\nTotal: ${cart?.total}",
       );
     } catch (e) {
       context.read<LoadingProvider>().changeLoading(
