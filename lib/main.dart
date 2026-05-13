@@ -1,4 +1,5 @@
 import 'package:api_using_http_provider/providers/loading_provider.dart';
+import 'package:api_using_http_provider/providers/message_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:api_using_http_provider/screens/carts_screen.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +18,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => LoadingProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => MessageProvider(),
         ),
       ],
       child: MaterialApp(

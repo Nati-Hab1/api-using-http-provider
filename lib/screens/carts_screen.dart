@@ -1,4 +1,5 @@
 import 'package:api_using_http_provider/providers/loading_provider.dart';
+import 'package:api_using_http_provider/providers/message_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:api_using_http_provider/models/cart.dart';
 import 'package:api_using_http_provider/services/api_service.dart';
@@ -16,51 +17,67 @@ class CartsScreen extends StatefulWidget {
 class _CartsScreenState extends State<CartsScreen> {
   List<Cart> carts = [];
 
-  String message = 'Press a button to make API request';
+  // String message = 'Press a button to make API request';
 
   Future<void> getAllCarts() async {
     try {
-      context.read<LoadingProvider>().changeLoading();
-      setState(() {
-        message = "Loading...";
-      });
+      context.read<LoadingProvider>().changeLoading(
+        value: true,
+      );
+      context.read<MessageProvider>().changeMessage(
+        newMessage: "Loading...",
+      );
 
       final result = await ApiService.getCarts();
 
-      context.read<LoadingProvider>().changeLoading();
       setState(() {
         carts = result.take(10).toList();
-        message = 'Loaded ${carts.length} carts';
       });
+
+      context.read<LoadingProvider>().changeLoading(
+        value: false,
+      );
+      context.read<MessageProvider>().changeMessage(
+        newMessage: "Loaded ${carts.length} carts",
+      );
     } catch (e) {
-      context.read<LoadingProvider>().changeLoading();
-      setState(() {
-        message = "Error: $e";
-      });
+      context.read<LoadingProvider>().changeLoading(
+        value: false,
+      );
+      context.read<MessageProvider>().changeMessage(
+        newMessage: "Error: $e",
+      );
     }
   }
 
   Future<void> getSingleCart() async {
     try {
-      context.read<LoadingProvider>().changeLoading();
-      setState(() {
-        message = "Loading...";
-      });
+      context.read<LoadingProvider>().changeLoading(
+        value: true,
+      );
+      context.read<MessageProvider>().changeMessage(
+        newMessage: "Loading...",
+      );
 
       Random random = Random();
       int id = random.nextInt(30) + 1;
 
       final cart = await ApiService.getCart(id);
 
-      setState(() {
-        message =
-            'Fetched Cart: ${cart.id}\nUser Id: ${cart.userId}\nTotal Products: ${cart.totalProducts}\nTotal Quantity: ${cart.totalQuantity}\nTotal: ${cart.total}';
-      });
+      context.read<LoadingProvider>().changeLoading(
+        value: false,
+      );
+      context.read<MessageProvider>().changeMessage(
+        newMessage:
+            "Fetched Cart: ${cart.id}\nUser Id: ${cart.userId}\nTotal Products: ${cart.totalProducts}\nTotal Quantity: ${cart.totalQuantity}\nTotal: ${cart.total}",
+      );
     } catch (e) {
-      context.read<LoadingProvider>().changeLoading();
-      setState(() {
-        message = "Error: $e";
-      });
+      context.read<LoadingProvider>().changeLoading(
+        value: false,
+      );
+      context.read<MessageProvider>().changeMessage(
+        newMessage: "Error: $e",
+      );
     }
   }
 
@@ -77,7 +94,7 @@ class _CartsScreenState extends State<CartsScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                message,
+                context.watch<MessageProvider>().message,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 18,

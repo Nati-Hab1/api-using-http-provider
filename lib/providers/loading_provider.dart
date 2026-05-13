@@ -5,8 +5,8 @@ class LoadingProvider extends ChangeNotifier {
 
   LoadingProvider({this.loading = false});
 
-  void changeLoading() {
-    loading = !loading;
+  void changeLoading({required bool value}) {
+    loading = value;
     notifyListeners();
   }
 }
