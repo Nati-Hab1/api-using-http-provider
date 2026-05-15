@@ -76,7 +76,7 @@ class ApiService {
     int id,
     List<Map<String, dynamic>> products,
   ) async {
-    final response = await http.put(
+    final response = await http.patch(
       Uri.parse('$baseUrl/$id'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
