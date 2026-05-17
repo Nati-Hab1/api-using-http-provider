@@ -1,17 +1,58 @@
-# api_using_http_provider
+# API Using HTTP and Provider
 
-A new Flutter project.
+A Flutter application that performs CRUD (Create, Read, Update, Delete) operations using the DummyJSON API with the http package and Provider state management.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## Features
 
-A few resources to get you started if this is your first Flutter project:
+- Fetch all carts
+- Fetch random cart
+- Create cart
+- Update cart
+- Patch cart
+- Delete cart
+- Loading states
+- Error handling
+- Provider state management
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## API Used
+
+DummyJSON API
+
+https://dummyjson.com/carts
+
+---
+
+## Screenshots
+
+### Home Screen
+![Home Screen](screenshots/home.png)
+
+### Fetch All
+![Fetch All](screenshots/fetch-all.png)
+
+### Fetch Single
+![Fetch Single](screenshots/fetch-single.png)
+
+### Create Cart
+![Create Cart](screenshots/create.png)
+
+### Update Cart
+![Update Cart](screenshots/update.png)
+
+### Patch Cart
+![Patch Cart](screenshots/patch.png)
+
+### Delete Cart
+![Delete Cart](screenshots/delete.png)
+
+---
+
+## Name, ID and Section
+
+- Natnael Habteselassie Demissie
+- UGR/5666/16
+- Section 2
