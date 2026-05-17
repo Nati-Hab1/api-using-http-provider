@@ -29,25 +29,25 @@ https://dummyjson.com/carts
 ## Screenshots
 
 ### Home Screen
-![Home Screen](screenshots/home.png)
+<img src="screenshots/home.png" width="250" alt="Home Screen">
 
 ### Fetch All
-![Fetch All](screenshots/fetch-all.png)
+<img src="screenshots/fetch-all.png" width="250" alt="Fetch All">
 
 ### Fetch Single
-![Fetch Single](screenshots/fetch-single.png)
+<img src="screenshots/fetch-single.png" width="250" alt="Fetch Single">
 
 ### Create Cart
-![Create Cart](screenshots/create.png)
+<img src="screenshots/create.png" width="250" alt="Create Cart">
 
 ### Update Cart
-![Update Cart](screenshots/update.png)
+<img src="screenshots/update.png" width="250" alt="Update Cart">
 
 ### Patch Cart
-![Patch Cart](screenshots/patch.png)
+<img src="screenshots/patch.png" width="250" alt="Patch Cart">
 
 ### Delete Cart
-![Delete Cart](screenshots/delete.png)
+<img src="screenshots/delete.png" width="250" alt="Delete Cart">
 
 ---
 
