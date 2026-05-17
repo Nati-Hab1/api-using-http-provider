@@ -201,7 +201,11 @@ class _CartsScreenState extends State<CartsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Cart Page")),
+      appBar: AppBar(
+        title: const Text(
+          "Carts Page Using HTTP and Provider",
+        ),
+      ),
       body: Container(
         decoration: BoxDecoration(
           color: Color.fromARGB(255, 91, 145, 229),
